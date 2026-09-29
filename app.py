@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.express as px
 from dataset import df
 from utils import format_number
-from graficos import grafico_map_estado, grafico_rec_mensal, grafico_rec_estado
+from graficos import grafico_map_estado, grafico_rec_mensal, grafico_rec_estado, grafico_rec_categoria, grafico_rec_vendedores
 
 #Configurando a tela do streamlit para Wide (Grantindo que 
 #o dashboard ocupe toda a tela) - Colocar sempre antes do Título
@@ -25,3 +25,8 @@ with aba2:
     with coluna2:
         st.metric('Quantidade de Vendas', format_number(df.shape[0]))
         st.plotly_chart(grafico_rec_mensal, use_container_width=True)
+        st.plotly_chart(grafico_rec_categoria, use_container_width=True)
+with aba3:
+    coluna1, coluna2 = st.columns(2)
+    with coluna1:
+        st.plotly_chart(grafico_rec_vendedores)    

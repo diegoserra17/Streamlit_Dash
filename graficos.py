@@ -1,5 +1,5 @@
 import plotly.express as px
-from utils import df_rec_estado, df_rec_mensal
+from utils import df_rec_estado, df_rec_mensal, df_rec_categoria, df_vendedores
 
 #Gráfico de mapa de estados com a receita
 #Scatter_geo é um gráfico de dispersão geográfica, que permite plotar pontos em um mapa com 
@@ -37,4 +37,18 @@ grafico_rec_estado = px.bar(
     text_auto = True,
     color = 'Local da compra',
     title = 'Top Receita por Estados'
+)
+
+grafico_rec_categoria = px.bar(
+    df_rec_categoria.head(7),
+    text_auto = True,
+    title = 'Top 7 Categorias com Maior Receita'
+)
+
+grafico_rec_vendedores = px.bar(
+    df_vendedores[['sum']].sort_values('sum', ascending=False).head(7),
+    x = 'sum',
+    y = df_vendedores[['sum']].sort_values('sum', ascending=False).head(7).index,
+    text_auto = True,
+    title = 'Top 7 Vendedores por Receita'
 )

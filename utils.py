@@ -1,5 +1,6 @@
 from dataset import df
 
+#Função para formatar números grandes em milhares e milhões
 def format_number(value, prefix = ''):
     for unit in ['', 'mil']:
         if value < 1000:
@@ -7,3 +8,12 @@ def format_number(value, prefix = ''):
         value /= 1000
     return f'{prefix} {value:.2f} milhões'
 
+#Agrupando o dataframe por estado e somando a receita
+df_rec_estado = df.groupby('Local da compra')[['Preço']].sum()
+
+#Considerando que pode haver registros duplicados
+#Passamos quais são os dados que vai estar trazendo.
+#Ordenando o dataframe pelo valor da receita de forma decrescente
+df_rec_estado = df.drop_duplicates(subset='Local da compra')[['Local da compra', 'lat','lon']].merge(df_rec_estado, left_on='Local da compra', right_index=True).sort_values('Preço', ascending=False)
+
+#print(df_rec_estado)

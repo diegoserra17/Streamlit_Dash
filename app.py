@@ -11,6 +11,17 @@ st.set_page_config(layout='wide')
 #Titulo do Dashboard
 st.title("Dashboard de Vendas: 🛒")
 
+#Seção para adicionar filtros no dashboard
+st.sidebar.title("Filtro de Vendedores")
+
+filtro_vendedor = st.sidebar.multiselect(
+    'Vededores',
+    df['Vendedor'].unique()
+)
+
+if filtro_vendedor:
+    df = df[df['Vendedor'].isin(filtro_vendedor)]
+
 #Criando as abas do dashboard
 aba1, aba2, aba3 = st.tabs(['Dataset', 'Receita', 'Vendedores'])
 with aba1:

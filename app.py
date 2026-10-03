@@ -1,5 +1,6 @@
 import streamlit as st
 from dataset import df
+import plotly.express as px
 from utils import format_number
 from graficos import grafico_map_estado, grafico_rec_mensal, grafico_rec_estado, grafico_rec_categoria, grafico_rec_vendedores, grafico_vendas_vendedores
 

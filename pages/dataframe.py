@@ -26,10 +26,11 @@ with st.sidebar.expander('Preço do Produto'):
                       (0, 5000)
                      )
 #Selecionando data da compra em um intervalo
+#Atenção para o formato de tupla, que deve ser inserido antes dos chaves.
 with st.sidebar.expander('Data da Compra'):
     data_compra = st.date_input('Selecione a data',
-                      df['Data da Compra'].min(),
-                      df['Data da Compra'].max()
+                      (df['Data da Compra'].min(),
+                      df['Data da Compra'].max())
                      )
 
 st.dataframe(df)

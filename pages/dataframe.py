@@ -14,7 +14,7 @@ with st.expander('Colunas'):
 #usuário selecione quais categorias deseja visualizar
 st.sidebar.title('Filtros')
 with st.sidebar.expander('Categoria do Produto'):
-    categoria = st.multiselect('Selecione as categorias',
+    categorias = st.multiselect('Selecione as categorias',
                                list(df['Categoria do Produto'].unique()),
                                list(df['Categoria do Produto'].unique())
                                )
@@ -33,4 +33,15 @@ with st.sidebar.expander('Data da Compra'):
                       df['Data da Compra'].max())
                      )
 
-st.dataframe(df)
+#apontando os filtros para o dataframe, utilizando a função query do pandas,
+# que permite filtrar os dados de acordo com as condições especificadas
+query = '''
+    `Categoria do Produto` in @categorias and \
+    @preco[0] <= Preço <= @preco[1] and \
+    @data_compra[0] <= `Data da Compra` <= @data_compra[1]
+'''
+
+#assim vamos filtrar os dados do dataframe de acordo com os filtros selecionados pelo usuário
+filtro_dados = df.query(query)
+filtro_dados = filtro_dados[colunas]
+st.dataframe(filtro_dados)
